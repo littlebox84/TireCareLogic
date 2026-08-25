@@ -9,11 +9,13 @@ async function search(q){await page.fill('#query',q);await page.click('#searchBt
 let text=await search('type M, 255/65, 15');
 assert.match(text,/255\/65R15/);assert.match(text,/TU02377/);assert.match(text,/TU02246/);assert.match(text,/placard/i);
 text=await search('33500');assert.match(text,/Schrader/);assert.match(text,/33500/);assert.match(text,/314\.9 \/ 315 \/ 433 MHz/);
+text=await search('7005HPR');assert.match(text,/Dill/);assert.match(text,/7005HPR/);assert.match(text,/433 MHz/);
+text=await search('300100');assert.match(text,/Autel/);assert.match(text,/MX-Sensor BLE/);
 text=await search('TR501');assert.match(text,/TR501/);assert.match(text,/verify exact product\/application/i);
 text=await search('255/65R18');assert.match(text,/Brownie's catalog matches/);assert.match(text,/Goodyear/);
 text=await search('420/85R38');assert.match(text,/420\/85R38/);assert.match(text,/TU0868/);
 text=await search('definitely-not-a-tire-xyz');assert.match(text,/UNKNOWN/i);
-const deep=page.locator('.deep-catalog-card');assert.equal(await deep.count(),1,'Deep Catalog card should exist');await deep.click();await page.waitForTimeout(50);text=await page.locator('#result').innerText();assert.match(text,/Air-Loc cross-reference records/);assert.match(text,/TPMS product records/);
+const deep=page.locator('.deep-catalog-card');assert.equal(await deep.count(),1,'Deep Catalog card should exist');await deep.click();await page.waitForTimeout(50);text=await page.locator('#result').innerText();assert.match(text,/Air-Loc cross-reference records/);assert.match(text,/TPMS product records/);assert.match(text,/24/);
 const regression=page.locator('.deep-test-card');assert.equal(await regression.count(),1,'Catalog Regression card should exist');await regression.click();await page.waitForTimeout(50);text=await page.locator('#result').innerText();assert.match(text,/18\/18/);assert.match(text,/catalog engine/i);
 const fatal=pageErrors.filter(e=>!/THREE|WebGL|cdn/i.test(e));assert.deepEqual(fatal,[],`page errors: ${fatal.join('; ')}`);
 console.log('BROWSER SMOKE PASS');
