@@ -1,0 +1,13 @@
+:root{color-scheme:dark;--ink:#f3f6f8;--ink-2:#d7dde2;--paper:#151a1f;--soft:#1b2229;--line:#39434d;--muted:#aab4bd;--warn:#382f0b;--danger:#ff7882;--ok:#56d29a}
+body{background:radial-gradient(circle at 75% 0,rgba(39,110,179,.18),transparent 35%),linear-gradient(#0d1115,#11171c 44%,#0c1014);color:var(--ink)}
+.shop-header{background:#0c1116}.utility-bar{background:linear-gradient(90deg,#061f3a,#0b4d95)}.brand-bar,.shop-nav{background:linear-gradient(90deg,#082f5b,#0b4d95 55%,#083d79)}.section-banner{background:#080b0e;border-color:#303941}
+.workflow-step{color:#8d99a3}.workflow-step span{background:#151a1f;border-color:#3a444d}.workflow-step.active{color:#73b8ff}.workflow-step.active span{background:var(--blue);border-color:#73b8ff;box-shadow:0 0 0 4px #11171c}.workflow-line{background:#303941}
+.hero-search,.panel,.module-card,.footer-rule{background:linear-gradient(145deg,#171d23,#11161b);border-color:#34404a;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.hero-search h1,.panel h2,.module-card strong,.detail-grid>div b,.fit b,.mini b{color:#f6f8fa}.hero-search p,.lead,.module-card small{color:var(--muted)}
+input{background:#0c1115;color:#f5f7f8;border-color:#46535e}input:focus{border-color:#67b4ff;box-shadow:0 0 0 3px rgba(39,110,179,.3)}
+button{background:#20272e;color:#eef2f5;border-color:#46515b}button:hover{background:#29333c;border-color:#6f7f8c}.quick-chips button{background:#10161b;border-color:#3b4650;color:#9dceff}.quick-chips button:hover{background:#25240d}
+.content-title,.footer-rule{background:#080b0e}.module-card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 1px rgba(249,220,31,.25)}
+.detail-grid>div,.fit,.mode-grid>div,.mini,.stat-grid>div,.result-choice,.browse-item,.test-row{background:#11171c;border-color:#35414a}.detail-grid span,.fit span,.mode-grid span,.mini span,.stat-grid span,.result-choice span,.browse-item span,.inventory-row span{color:#aab4bd}.fit strong,.result-choice strong,.stat-grid b,.panel h3,.motto{color:#80c1ff}
+.warning{background:#322b0c;color:#ffe992}.ok{background:#0f2d22;color:#9ce8c3}.browse-item:hover,.result-choice:hover{background:#172634}.chips span{background:#10161b;color:#b6c0c8;border-color:#3c4650}.inventory-row{background:#11171c;border-color:#35414a}.source-list{color:#9da8b0;border-color:#38424a}a{color:#80c1ff}
+.calculator-grid{display:grid;grid-template-columns:2fr 2fr 1fr auto;gap:10px;align-items:end;margin:18px 0}.calculator-grid label{display:flex;flex-direction:column;gap:6px;color:#b8c2ca;font-size:13px}.calculator-grid button{min-height:49px;background:var(--blue-deep);color:#fff;border-color:#4a9fea}
+@media(max-width:800px){.calculator-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.calculator-grid{grid-template-columns:1fr}}

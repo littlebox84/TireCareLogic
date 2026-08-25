@@ -62,6 +62,9 @@ Training should preserve memorable shop guidance where appropriate, including:
 - confidence/status labels
 - reverse-search-ready data model
 - AIRLOCK fitment rules
+- metric and flotation tire-size parsing
+- diameter, sidewall, circumference, revolutions-per-mile, and speedometer comparison math
+- downloadable calculated passenger/LT size-space CSV datasets with explicit non-fitment status
 - tire sidewall/service-description knowledge
 - TPMS relearn method model
 - inventory reconciliation fields reserved for shop data
@@ -84,6 +87,10 @@ Then open the local Vite URL.
 - **Needs Check** — plausible but not yet verified
 - **Do Not Use** — known incompatibility or blocked procedure
 - **Unknown** — insufficient information; TireCare Logic must not invent an answer
+
+## Production boundary
+
+The application distinguishes verified catalog fitments from calculated size combinations. A calculated size is never presented as proof that a product exists or is approved for a vehicle, wheel, load, tube, valve, or pressure.
 
 ## Next phase
 
