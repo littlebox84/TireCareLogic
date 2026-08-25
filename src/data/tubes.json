@@ -1,11 +1,12 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "fitmentFamilies": [
     {
       "id": "lt-700-750-r16",
       "canonical": "7.00R/7.50R16LT",
       "aliases": ["70075016", "7.00R7.50R16LT", "7.00 7.50 16", "7.00-16", "7.50-16", "70016", "75016"],
       "application": "Light Truck",
+      "construction": "Radial",
       "status": "verified",
       "warning": "Multiple manufacturer-listed valve configurations exist. Verify wheel/valve configuration and valve offset before final selection.",
       "fitments": [
@@ -21,19 +22,120 @@
         {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/19/light-truck-made-in-usa"},
         {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/2/light-truck-imported"}
       ]
+    },
+    {
+      "id": "lpt-700-750-r15tr",
+      "canonical": "7.00R/7.50R15TR",
+      "aliases": ["70075015TR", "7.00R7.50R15TR", "70075015"],
+      "application": "Low Platform Trailer",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "Center-valve trailer fitment. Do not substitute based only on nominal tire width.",
+      "fitments": [
+        {"article":"538-655","valve":"TR440","offset":"Center","origin":"Made in USA"},
+        {"article":"556-556","valve":"TR440","offset":"Center","origin":"Imported"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/3/low-platform-trailer-made-in-usa"}]
+    },
+    {
+      "id": "lpt-900-r20",
+      "canonical": "9.00R20",
+      "aliases": ["90020", "9.00R20", "9.00-20"],
+      "application": "Low Platform Trailer",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "Bridgestone lists this trailer fitment with a center TR443 valve.",
+      "fitments": [
+        {"article":"540-196","valve":"TR443","offset":"Center","origin":"Made in USA"},
+        {"article":"553-054","valve":"TR443","offset":"Center","origin":"Imported"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/3/low-platform-trailer-made-in-usa"}]
+    },
+    {
+      "id": "lpt-1000-1280-r20",
+      "canonical": "10.00R/12.80R20",
+      "aliases": ["1000128020", "10.00R12.80R20", "1000R20", "1280R20"],
+      "application": "Low Platform Trailer",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "Manufacturer groups 10.00R20 and 12.80R20 in one tube family using center TR444.",
+      "fitments": [
+        {"article":"540-234","valve":"TR444","offset":"Center","origin":"Made in USA"},
+        {"article":"553-071","valve":"TR444","offset":"Center","origin":"Imported"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/3/low-platform-trailer-made-in-usa"}]
+    },
+    {
+      "id": "rear-farm-136-139-149-r36-38",
+      "canonical": "13.6R/13.9R/14.9R36/38",
+      "aliases": ["1361391493638", "13.6R13.9R14.9R36/38", "13.6-36", "13.9-36", "14.9-36", "13.6-38", "13.9-38", "14.9-38"],
+      "application": "Rear Farm",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "This family includes a specified valve offset. Rim and valve position must be checked.",
+      "fitments": [
+        {"article":"552-593","valve":"TR218A","offset":"3 in","origin":"Made in USA"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/11/rear-farm-made-in-usa"}]
+    },
+    {
+      "id": "rear-farm-169-184-r38",
+      "canonical": "16.9R/18.4R38",
+      "aliases": ["16918438", "16.9R18.4R38", "16.9-38", "18.4-38"],
+      "application": "Rear Farm",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "Manufacturer-listed shared tube family with a 3 1/2 inch offset TR218A valve.",
+      "fitments": [
+        {"article":"518-417","valve":"TR218A","offset":"3 1/2 in","origin":"Made in USA"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/11/rear-farm-made-in-usa"}]
+    },
+    {
+      "id": "rear-farm-136-139-149-155-r38",
+      "canonical": "13.6R/13.9R/14.9R/15.5R38",
+      "aliases": ["13613914915538", "13.6R13.9R14.9R15.5R38", "13.6-38", "13.9-38", "14.9-38", "15.5-38"],
+      "application": "Rear Farm",
+      "construction": "Radial",
+      "status": "verified",
+      "warning": "Shared rear-farm family; valve offset is part of the fitment.",
+      "fitments": [
+        {"article":"549-452","valve":"TR218A","offset":"2 1/2 in","origin":"Made in USA"}
+      ],
+      "sources": [{"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/page/11/rear-farm-made-in-usa"}]
     }
   ],
   "valves": [
-    {"code":"TR13","maxPressurePsi":60,"hydroflation":false,"bore":"Standard","notes":"Straight standard-bore tube valve. Michelin lists approximately 11.5 mm valve-hole diameter."},
-    {"code":"TR15","maxPressurePsi":60,"hydroflation":false,"bore":"Standard","notes":"Straight standard-bore tube valve. Michelin lists approximately 16 mm valve-hole diameter."},
-    {"code":"TR15CW","maxPressurePsi":150,"hydroflation":true,"bore":"Standard","notes":"High-pressure straight valve; Bridgestone marks it hydroflation-capable."},
-    {"code":"TR135","maxPressurePsi":60,"hydroflation":false,"bore":"Standard","notes":"Hand-bendable standard-bore valve."},
-    {"code":"TR150","maxPressurePsi":100,"hydroflation":false,"bore":"Standard","notes":"Hand-bendable standard-bore valve."},
-    {"code":"TR218A","maxPressurePsi":150,"hydroflation":true,"bore":"Large","notes":"Air/water large-bore valve. Michelin lists approximately 15.7 mm valve-hole diameter."},
-    {"code":"TR440","maxPressurePsi":null,"hydroflation":null,"bore":"Unknown in starter dataset","notes":"Included because Bridgestone lists a center-valve 7.00R/7.50R16LT configuration using TR440."}
+    {"code":"TR6","aliases":[],"maxPressurePsi":null,"hydroflation":false,"bore":"Standard","stemDiameterIn":0.29,"application":["ATV/UTV","Lawn & Garden"],"notes":"Air-Loc valve specification lists TR6 for ATV/UTV and lawn & garden."},
+    {"code":"TR13","aliases":[],"maxPressurePsi":60,"hydroflation":false,"bore":"Standard","stemDiameterIn":0.46,"application":["Lawn & Garden","Passenger","Light Truck"],"notes":"Straight standard-bore valve. Michelin lists approximately 11.5 mm valve-hole diameter. Bridgestone documents a B6 bushing for certain TR13 installations in a 0.625 inch TR15 rim hole."},
+    {"code":"TR15","aliases":[],"maxPressurePsi":60,"hydroflation":false,"bore":"Standard","stemDiameterIn":0.65,"application":["Front Tractor","Implement","Industrial Construction"],"notes":"Straight valve. Michelin lists approximately 16 mm valve-hole diameter."},
+    {"code":"TR15CW","aliases":[],"maxPressurePsi":150,"hydroflation":true,"bore":"Standard","application":["Light Truck","Farm/Industrial depending on tube"],"notes":"High-pressure straight valve; Bridgestone marks it hydroflation-capable."},
+    {"code":"TR135","aliases":[],"maxPressurePsi":60,"hydroflation":false,"bore":"Standard","application":["Light Truck"],"notes":"Hand-bendable standard-bore valve."},
+    {"code":"TR150","aliases":[],"maxPressurePsi":100,"hydroflation":false,"bore":"Standard","stemDiameterIn":0.61,"application":["Light Truck","Trailer","Front Tractor","Implement"],"notes":"Hand-bendable standard-bore valve."},
+    {"code":"TR218A","aliases":["TR220A family distinction required"],"maxPressurePsi":150,"hydroflation":true,"bore":"Large","stemDiameterIn":0.64,"application":["Tractor","Implement","Construction"],"notes":"Air/water large-bore valve. Michelin lists approximately 15.7 mm valve-hole diameter. Common rear-farm valve where liquid ballast may be used."},
+    {"code":"TR300","aliases":[],"maxPressurePsi":null,"hydroflation":false,"bore":"Standard","stemDiameterIn":0.61,"application":["Truck","Bus","Trailer","Irrigation"],"notes":"Air-Loc application mapping."},
+    {"code":"TR440","aliases":["TR75A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent valve family; Bridgestone states TR440-TR445 valves are for slotted rims."},
+    {"code":"TR441","aliases":["TR177A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent-valve family alias from Air-Loc chart."},
+    {"code":"TR442","aliases":["TR77A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent-valve family alias from Air-Loc chart."},
+    {"code":"TR443","aliases":["TR175A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent-valve family alias from Air-Loc chart."},
+    {"code":"TR444","aliases":["TR78A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent-valve family alias from Air-Loc chart."},
+    {"code":"TR445","aliases":["TR179A"],"maxPressurePsi":150,"hydroflation":false,"bore":"Standard","application":["Industrial","Forklift","Mining","Commercial Truck"],"notes":"Bent-valve family alias from Air-Loc chart."},
+    {"code":"JS2","aliases":[],"maxPressurePsi":null,"hydroflation":false,"bore":"Standard","application":["Forklift","Small Industrial","Material Handling"],"notes":"Air-Loc lists JS2 as an on-center bent valve with approximately 70 degree bend."},
+    {"code":"TR87","aliases":[],"maxPressurePsi":null,"hydroflation":false,"bore":"Standard","application":["Small specialty applications"],"notes":"Air-Loc lists TR87 as an on-center 90 degree bent valve."}
+  ],
+  "safetyRules": [
+    {"id":"recommended-size-type-only","severity":"critical","rule":"Use only the size and type tube, and flap if required, recommended for the tire.","source":"Bridgestone Americas Tube Business"},
+    {"id":"radial-with-radial","severity":"critical","rule":"Only radial tubes and radial flaps may be used with radial tires.","source":"Bridgestone Americas Tube Business"},
+    {"id":"new-tire-new-tube","severity":"critical","rule":"Use new tubes and new flaps, if required, in new tires. Do not use creased, buckled, or damaged tubes/flaps.","source":"Bridgestone Americas Tube Business"},
+    {"id":"tr13-b6-bushing","severity":"warning","rule":"A TR13 valve used in a 0.625 inch TR15 rim hole may require the proper B6 bushing; improper use can cause valve failure.","source":"Bridgestone Americas Tube Business"},
+    {"id":"tr440-445-slot","severity":"warning","rule":"TR440-TR445 bent valve family is intended for slotted rims.","source":"Bridgestone Americas Tube Business"}
   ],
   "sources": [
-    {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/valves/home/"},
-    {"publisher":"Michelin","url":"https://business.michelinman.com/help-advice/farm-vehicles/tractor-tire-parts-rims-inner-tubes-valves"}
+    {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/products/home/"},
+    {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/policies-and-forms/page/1/tube-safety"},
+    {"publisher":"Bridgestone Americas Tube Business","url":"https://firestonetubes.com/images/pdf/catalog-2023.pdf"},
+    {"publisher":"Michelin","url":"https://business.michelinman.com/help-advice/farm-vehicles/tractor-tire-parts-rims-inner-tubes-valves"},
+    {"publisher":"St. Louis Wholesale Tire / Air-Loc","url":"https://www.stlwholesale.com/pageimages/download_docs/air_loc-_TUBES_v3_top.pdf"},
+    {"publisher":"St. Louis Wholesale Tire / Air-Loc","url":"https://www.stlwholesale.com/pageimages/download_docs/AIR_LOC_INNER_TUBE_FITMENT_CHART_5-11-18.pdf"}
   ]
 }
