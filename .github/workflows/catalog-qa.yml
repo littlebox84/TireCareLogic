@@ -1,0 +1,31 @@
+name: Catalog QA
+
+on:
+  push:
+    branches: [feature-catalog-engine-v1, main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  catalog-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Node catalog regression
+        run: node tests/catalog-regression.js
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/tirecare-http.log 2>&1 &
+          echo $! > /tmp/tirecare-http.pid
+          sleep 2
+      - name: Run real Chromium UI smoke test
+        run: node tests/browser-smoke.mjs
