@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "name": "TireCare Logic Master Knowledge Import",
+  "modules": {
+    "tires": {
+      "sources": ["passenger_sizes", "LT_sizes", "commercial", "agriculture", "motorcycle", "flotation", "industrial", "OTR"],
+      "fields": ["size", "category", "width", "aspect", "construction", "rim", "diameter"]
+    },
+    "tubes": {
+      "sources": ["Air-Loc", "Firestone", "shop_inventory"],
+      "fields": ["tube_size", "fitments", "valve", "application", "notes"]
+    },
+    "valves": {
+      "families": ["TR413", "TR600HP", "TR501", "TR618A", "TR218A", "TR440", "JS2"],
+      "fields": ["part_number", "type", "hole_size", "pressure_rating", "application"]
+    },
+    "tpms": {
+      "brands": ["Schrader", "Dill", "Autel", "Hamaton"],
+      "fields": ["part_number", "frequency", "stem_type", "programming", "relearn"]
+    },
+    "training": {
+      "topics": ["tire_repair", "tube_repair", "puncture_inspection", "pressure", "inventory"]
+    }
+  },
+  "rules": [
+    "Never confuse tire PSI with valve pressure rating",
+    "Never claim inventory without physical verification",
+    "Show unknown when evidence is missing"
+  ]
+}
