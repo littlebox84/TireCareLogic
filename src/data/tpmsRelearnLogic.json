@@ -1,0 +1,100 @@
+{
+  "version": "0.1.0",
+  "purpose": "Vehicle-specific TPMS relearn method classification for TireCare Logic / ValveLogic.",
+  "methodTypes": [
+    "manual_tool_learn",
+    "manual_air_bleed_learn",
+    "manual_menu_reset_then_drive",
+    "automatic_drive_relearn",
+    "indirect_tpms_calibration",
+    "obd_programming_then_relearn",
+    "unknown_requires_verification"
+  ],
+  "rules": [
+    {
+      "id": "vehicle-specific-not-brand-wide",
+      "rule": "Never assign a relearn method by brand alone. Year, model, platform, TPMS architecture, and sensor type can change the procedure.",
+      "severity": "hard_stop"
+    },
+    {
+      "id": "direct-vs-indirect",
+      "rule": "Determine whether the vehicle uses direct TPMS wheel sensors or indirect TPMS wheel-speed calibration before recommending a sensor or relearn procedure.",
+      "severity": "hard_stop"
+    },
+    {
+      "id": "new-sensor-programming",
+      "rule": "A programmable aftermarket sensor may require cloning or programming before vehicle relearn. Relearn and sensor programming are separate operations.",
+      "severity": "warning"
+    }
+  ],
+  "verifiedExamples": [
+    {
+      "manufacturer": "General Motors",
+      "exampleVehicle": "2016 Chevrolet Cruze Limited",
+      "architecture": "direct",
+      "method": "manual_tool_learn",
+      "driveTimeRequired": false,
+      "positionSequence": ["LF", "RF", "RR", "LR"],
+      "confirmation": "Horn chirp at each learned position; double horn after final position.",
+      "notes": "Vehicle is placed into TIRE LEARNING ACTIVE mode and a TPMS relearn tool is used near each valve stem.",
+      "source": "GM Owner Manual"
+    },
+    {
+      "manufacturer": "Ford",
+      "exampleVehicle": "Verified Ford owner-manual example",
+      "architecture": "direct",
+      "method": "manual_menu_reset_then_drive",
+      "driveTimeRequired": true,
+      "driveTime": "Approximately 15 minutes after reset on documented applications",
+      "notes": "Some current Ford applications use an in-vehicle reset followed by automatic sensor relearn during driving. Other Ford applications use explicit sensor training, so do not generalize this procedure to all Ford vehicles.",
+      "source": "Ford Owner Manual"
+    },
+    {
+      "manufacturer": "Ford",
+      "exampleVehicle": "Verified Ford sensor-training example",
+      "architecture": "direct",
+      "method": "manual_air_bleed_learn",
+      "driveTimeRequired": false,
+      "positionSequence": ["LF", "RF", "RR", "LR"],
+      "confirmation": "Horn confirms each sensor position.",
+      "notes": "Documented Ford applications can enter training mode and learn positions by pressure change. Procedure varies by model/year.",
+      "source": "Ford Owner Manual"
+    },
+    {
+      "manufacturer": "Honda",
+      "exampleVehicle": "2020 Civic Type R",
+      "architecture": "indirect",
+      "method": "indirect_tpms_calibration",
+      "driveTimeRequired": true,
+      "driveTime": "Approximately 30 minutes cumulative driving at 30-65 mph after calibration is initiated",
+      "notes": "This application calibrates the TPMS rather than learning individual wheel pressure sensors.",
+      "source": "Honda Owner Manual"
+    },
+    {
+      "manufacturer": "Ram / Stellantis",
+      "exampleVehicle": "2025 Ram 1500",
+      "architecture": "direct",
+      "method": "automatic_drive_relearn",
+      "driveTimeRequired": true,
+      "driveTime": "May require up to 20 minutes above 15 mph for updated pressure information to be received",
+      "notes": "Documented example of drive-based TPMS updating. Exact sensor replacement/relearn procedure still must be verified by model/year.",
+      "source": "Mopar Owner Manual"
+    }
+  ],
+  "requiredVehicleFields": [
+    "year",
+    "make",
+    "model",
+    "trim_or_platform_when_needed",
+    "direct_or_indirect_tpms",
+    "sensor_frequency_when_direct",
+    "sensor_part_or_protocol_when_known",
+    "relearn_method",
+    "position_sequence",
+    "special_tool_required",
+    "drive_speed_requirement",
+    "drive_time_requirement",
+    "confirmation_method",
+    "source"
+  ]
+}
