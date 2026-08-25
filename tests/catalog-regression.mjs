@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import '../src/catalog-engine.js';
 import '../src/research-catalog.js';
+import '../src/technical-references.js';
 import '../src/catalog-runtime.js';
 const C = globalThis.TIRE_CATALOG;
 assert.ok(C && C.RUNTIME_SAFE, 'safe catalog runtime must load');
@@ -19,8 +20,10 @@ const cases = [
   ['TR618A', r => r.valves.some(x=>x.code==='TR618A')],
   ['33500', r => r.tpms.some(x=>x.part==='33500')],
   ['5001', r => r.tpms.some(x=>x.part==='5001')],
+  ['7005HPR', r => r.tpms.some(x=>x.part==='7005HPR')],
   ['HTS-A78DH', r => r.tpms.some(x=>x.part==='HTS-A78DH')],
   ['300020', r => r.tpms.some(x=>x.part==='300020')],
+  ['300100', r => r.tpms.some(x=>x.part==='300100')],
   ['255/65R18', r => !!r.tire && r.brownies.length > 0],
   ['definitely-not-a-tire-xyz', r => !r.tire && !r.tubes.length && !r.valves.length && !r.tpms.length]
 ];
@@ -39,6 +42,7 @@ assert.equal(C.search('TR501').valves.find(x=>x.code==='TR501').maxPsi,null,'TR5
 const audit=C.audit();
 assert.ok(audit.airlocFitmentRecords>80,'Air-Loc research catalog should be broad');
 assert.ok(audit.airlocFitAliases>200,'Air-Loc aliases should provide broad searchable coverage');
-assert.ok(audit.tpmsProducts>=15,'TPMS product data should be loaded');
+assert.ok(audit.tpmsProducts>=24,'expanded TPMS product data should be loaded');
+assert.ok(audit.sourceCount>=30,'technical source registry should be expanded');
 console.log(`\n${pass}/${cases.length} catalog regression cases passed.`);
 console.log(JSON.stringify(audit,null,2));
