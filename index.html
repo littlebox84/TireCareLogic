@@ -1,54 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b0f12" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081012">
   <title>TireCare Logic</title>
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="three-bg" aria-hidden="true"></div>
   <main class="app-shell">
     <header class="topbar">
       <div>
         <div class="eyebrow">SHOP INTELLIGENCE • AIRLOCK MODE</div>
         <h1>TireCare Logic</h1>
-        <p class="subtitle">Fitment. Pressure. Valves. Repairs. Training.</p>
+        <p class="subtitle">Tires. Tubes. Pressure. Valves. TPMS. Repairs. Training.</p>
       </div>
       <div class="airlock">AIRLOCK ACTIVE</div>
     </header>
 
     <section class="hero-search">
-      <div class="search-head">
-        <span>Ask TireCare</span>
-        <span class="mode-pill">QUICK</span>
-      </div>
+      <div class="search-head"><span>Ask TireCare</span><span class="mode-pill">STATIC BUILD</span></div>
       <div class="search-row">
-        <input id="query" autocomplete="off" placeholder="Try 70075016, TR218A, 600HP..." />
-        <button id="searchBtn" class="primary">Search</button>
+        <input id="query" autocomplete="off" placeholder="Try 70075016, TR600HP, TR501, TPMS, pressure...">
+        <button id="searchBtn" class="primary">SEARCH</button>
       </div>
       <div class="quick-chips">
         <button data-q="70075016">70075016</button>
-        <button data-q="TR218A">TR218A</button>
-        <button data-q="TR440">TR440</button>
+        <button data-q="TR600HP">600HP</button>
+        <button data-q="TR501">501</button>
+        <button data-q="TPMS relearn">TPMS</button>
       </div>
     </section>
 
-    <section class="module-grid" id="modules">
-      <button class="module-card" data-module="fitment"><span class="icon">◉</span><strong>Tire / Tube</strong><small>Size, tube, valve, flap</small></button>
-      <button class="module-card" data-module="pressure"><span class="icon">PSI</span><strong>Pressure</strong><small>Placard-first pressure logic</small></button>
-      <button class="module-card" data-module="valves"><span class="icon">V</span><strong>Valves & TPMS</strong><small>Stem, sensor, relearn</small></button>
-      <button class="module-card" data-module="patch"><span class="icon">＋</span><strong>Patch Notes</strong><small>Find, inspect, repair, verify</small></button>
-      <button class="module-card" data-module="training"><span class="icon">▶</span><strong>Training</strong><small>Quick / Learn / Why</small></button>
-      <button class="module-card" data-module="inventory"><span class="icon">▦</span><strong>Inventory</strong><small>Shop stock coming next</small></button>
+    <section class="module-grid">
+      <button class="module-card" data-module="fitment"><span class="icon">◉</span><strong>Tire / Tube</strong><small>Size, construction, fitment, valve, flap</small></button>
+      <button class="module-card" data-module="pressure"><span class="icon">PSI</span><strong>PressureLogic</strong><small>Placard-first pressure workflow</small></button>
+      <button class="module-card" data-module="valves"><span class="icon">V</span><strong>ValveLogic + TPMS</strong><small>413, 600HP, 501, sensors, relearn</small></button>
+      <button class="module-card" data-module="patch"><span class="icon">＋</span><strong>Patch Notes</strong><small>Dunk, inspect, repair, verify</small></button>
+      <button class="module-card" data-module="training"><span class="icon">▶</span><strong>TrainingLogic</strong><small>Quick / Learn / Why?</small></button>
+      <button class="module-card" data-module="inventory"><span class="icon">▦</span><strong>InventoryLogic</strong><small>Physical stock + shop bins</small></button>
     </section>
 
     <section id="result" class="result"></section>
-
-    <footer class="footer-rule">
-      Verified answer, clear condition, or UNKNOWN. TireCare Logic does not guess.
-    </footer>
+    <footer class="footer-rule">Verified answer, clear condition, or UNKNOWN. TireCare Logic does not guess.</footer>
   </main>
-  <script type="module" src="/src/app.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+  <script src="knowledge-base.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
