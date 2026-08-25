@@ -1,0 +1,57 @@
+{
+  "version": "0.1.0",
+  "sidewallDecoder": {
+    "example": "205/55R17 91V",
+    "fields": [
+      {"token":"205","meaning":"Nominal section width in millimeters"},
+      {"token":"55","meaning":"Aspect ratio: sidewall height as a percent of section width"},
+      {"token":"R","meaning":"Radial construction"},
+      {"token":"17","meaning":"Rim diameter in inches"},
+      {"token":"91","meaning":"Load index"},
+      {"token":"V","meaning":"Speed rating"}
+    ]
+  },
+  "constructionCodes": [
+    {"code":"R","meaning":"Radial"},
+    {"code":"-","meaning":"Diagonal / bias in agricultural markings"}
+  ],
+  "typePrefixes": [
+    {"code":"P","meaning":"Passenger application prefix"},
+    {"code":"LT","meaning":"Light Truck application prefix"}
+  ],
+  "serviceDescription": {
+    "definition":"Load index plus speed rating. Tires of the same dimensional size can have different service descriptions.",
+    "replacementRule":"Meet or exceed the vehicle manufacturer specified load index and speed rating unless a manufacturer-approved exception applies."
+  },
+  "loadRules": [
+    "A higher tire load index does not increase the vehicle's legal or engineered load capacity.",
+    "Maximum sidewall pressure is not the same as the vehicle's recommended operating pressure.",
+    "Same dimensional size does not guarantee equivalent load capacity."
+  ],
+  "tubeConstruction": [
+    {"marking":"TUBE TYPE","meaning":"An inner tube is required."},
+    {"marking":"TUBELESS","meaning":"The tire is designed to operate without an inner tube on an appropriate tubeless rim; some specialty applications may still publish compatible tube references."}
+  ],
+  "dateCode": {
+    "format":"WWYY",
+    "meaning":"Last four digits of the DOT/TIN date portion indicate week and year of manufacture."
+  },
+  "commercialExamples": [
+    {
+      "marking":"315/70R22.5 154/150L",
+      "meaning":"Commercial truck size with single/dual load indexes and speed symbol."
+    }
+  ],
+  "agExamples": [
+    {
+      "marking":"VF 650/60R38 155D",
+      "meaning":"VF category, 650 mm nominal section width, 60 aspect ratio, radial construction, 38-inch rim, load index 155, speed index D."
+    }
+  ],
+  "sources": [
+    {"publisher":"Michelin USA","url":"https://www.michelinman.com/auto/auto-tips-and-advice/tires-101/tire-markings-explained"},
+    {"publisher":"Michelin USA","url":"https://www.michelinman.com/auto/auto-tips-and-advice/tires-101/tire-load-rating-speed-rating"},
+    {"publisher":"Michelin Commercial","url":"https://business.michelinman.com/tips-suggestions/reading-tire-markings"},
+    {"publisher":"Michelin Commercial","url":"https://business.michelinman.com/tips-suggestions/truck/commercial-truck-tire-sizes"}
+  ]
+}
