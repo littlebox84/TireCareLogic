@@ -51,6 +51,20 @@
     return out;
   };
   const uniq = arr => [...new Set(arr)];
+  const SPECIALTY = root.TIRECARE_SPECIALTY_CATALOG || {meta:{counts:{}},tires:[],tubes:[],valves:[],sources:[]};
+  const specialtySource = url => {
+    const match = (SPECIALTY.sources || []).find(source => source.url === url);
+    return {name:match?.name || 'Manufacturer catalog reference',url};
+  };
+  const uniqueBy = (items, signature) => {
+    const seen = new Set();
+    return items.filter(item => {
+      const id = signature(item);
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+  };
 
   const FAMILY_DEFS = {
     passenger_metric: {
@@ -156,7 +170,7 @@
     return `${p}${w}/${a}${construction}${r}`;
   }
 
-  const TUBES = [
+  const CORE_TUBES = [
     ['536-261','GR13/14/15;7R14','TR13','Passenger','USA','7/8 in','PASSENGER_USA'],
     ['536-296','KR14/15','TR13','Passenger','USA','7/8 in','PASSENGER_USA'],
     ['521-078','MR14/15;7R7.5LR7.50R8R8.5LR9.5LR14/15','TR13','Passenger','USA','2 in','PASSENGER_USA'],
@@ -236,7 +250,7 @@
     ['556-760','11R12R24.5','TR15CW','Skidsteer / Manlift / Duplex','Imported','4/5 in','SKID']
   ].map(r => ({article:r[0], size:r[1], valve:r[2], application:r[3], origin:r[4], valveOffset:r[5], source:SOURCES[r[6]], status:STATUS.VERIFIED_PRODUCT}));
 
-  const VALVES = [
+  const CORE_VALVES = [
     {code:'JS2',lengthIn:'1.30 straight / 1.02 bent',maxPsi:60,handBendable:true,hydroflation:false,bore:'Standard',source:SOURCES.FIRESTONE_VALVES},
     {code:'TR13',lengthIn:1.375,maxPsi:60,handBendable:false,hydroflation:false,bore:'Standard',rimHoleIn:0.453,notes:'B6 bushing allows use in a 0.625 in rim hole. Not intended for liquid ballast.',source:{name:'Bridgestone TR13 valve page',url:'https://firestonetubes.com/valves/page/2/tr13'}},
     {code:'TR135',lengthIn:2.63,maxPsi:60,handBendable:true,hydroflation:false,bore:'Standard',source:SOURCES.FIRESTONE_VALVES},
@@ -252,50 +266,107 @@
     {code:'TR300',specStatus:'FITMENT_REFERENCE_ONLY',source:SOURCES.SKID}
   ].map(v => ({...v,status:STATUS.VERIFIED_REFERENCE}));
 
+  const SPECIALTY_TUBES = (SPECIALTY.tubes || []).map(t => ({
+    article:t.articleNumber,
+    size:t.fitmentLabel,
+    valve:t.valve,
+    application:t.category,
+    origin:'Manufacturer catalog',
+    valveOffset:null,
+    weightLb:t.weightLb,
+    packPallet:t.packPallet,
+    compatibilityNote:t.compatibilityNote,
+    source:specialtySource(t.sourceUrl),
+    status:STATUS.VERIFIED_PRODUCT,
+    dataset:'specialty-2026-08-25'
+  }));
+
+  const SPECIALTY_VALVES = (SPECIALTY.valves || []).map(v => ({
+    code:v.partNumber,
+    class:v.valveSystem,
+    description:v.description,
+    length:v.length,
+    pressure:v.maximumPressure,
+    handBendable:v.handBendable,
+    hydroflation:String(v.hydroflation || '').toLowerCase() === 'yes',
+    hydroflationText:v.hydroflation,
+    boreOrHole:v.boreOrHole,
+    source:specialtySource(v.sourceUrl),
+    status:STATUS.VERIFIED_REFERENCE,
+    dataset:'specialty-2026-08-25'
+  }));
+
+  const CATALOG_TIRES = (SPECIALTY.tires || []).map(t => ({
+    ...t,
+    source:specialtySource(t.sourceUrl),
+    status:STATUS.VERIFIED_PRODUCT
+  }));
+
+  const TUBES = uniqueBy([...SPECIALTY_TUBES, ...CORE_TUBES], t => key(t.article));
+  const VALVES = uniqueBy([...CORE_VALVES, ...SPECIALTY_VALVES], v => key([v.code,v.source?.url,v.description].join('|')));
+
   const tubeSearchText = t => key([t.article,t.size,t.valve,t.application,t.origin].join(' '));
   function searchTubes(query) {
     const q = key(query);
     if (!q) return [];
     return TUBES.filter(t => tubeSearchText(t).includes(q) || q.includes(key(t.article)) || q === key(t.valve));
   }
+  const valveKey = value => key(value).replace(/^TV(?=\d)/,'TR');
   function searchValves(query) {
-    const q = key(query).replace(/^TV/,'TR');
+    const q = valveKey(query);
     if (!q) return [];
-    return VALVES.filter(v => key(v.code) === q || key(v.code).includes(q));
+    const exact = VALVES.filter(v => valveKey(v.code) === q);
+    if (exact.length || q.length < 4) return exact;
+    return VALVES.filter(v => valveKey(v.code).includes(q));
+  }
+  function searchCatalogTires(query) {
+    const q = key(normalizeTireSize(query));
+    if (!q) return [];
+    return CATALOG_TIRES.filter(t => key(normalizeTireSize(t.code)) === q);
   }
 
   function compatibilityForTire(input) {
     const parsed = parseTireSize(input);
     const q = key(normalizeTireSize(input));
     const tubeMatches = TUBES.filter(t => key(t.size).includes(q) || (q.length >= 5 && q.includes(key(t.size))));
+    const catalogTireMatches = searchCatalogTires(input);
     return {
       input, parsed,
       generatedNomenclatureMatch: isInGeneratedSpace(parsed),
+      catalogTireMatches,
       tubeMatches,
-      status: tubeMatches.length ? STATUS.VERIFIED_PRODUCT : (parsed && isInGeneratedSpace(parsed) ? STATUS.GENERATED_NOMENCLATURE : STATUS.UNKNOWN),
-      warning: tubeMatches.length ? 'Tube records are manufacturer-listed product references. Verify wheel valve-hole, valve position, tube material and exact application before installation.' : 'No verified tube product in the local dataset matches this input. Do not infer tube fitment from diameter alone.'
+      status: tubeMatches.length || catalogTireMatches.length ? STATUS.VERIFIED_PRODUCT : (parsed && isInGeneratedSpace(parsed) ? STATUS.GENERATED_NOMENCLATURE : STATUS.UNKNOWN),
+      warning: tubeMatches.length ? 'Tube records are manufacturer-listed product references. Verify wheel valve-hole, valve position, tube material and exact application before installation.' : catalogTireMatches.length ? 'This designation appears in a cited manufacturer catalog. That proves a catalog size record—not vehicle fitment, current stock, load, rim, pressure, or TPMS approval.' : 'No verified tube product or exact catalog size in the local dataset matches this input. Do not infer fitment from dimensions alone.'
     };
   }
 
   function search(query) {
     const valves = searchValves(query);
     const tubes = searchTubes(query);
+    const catalogTires = searchCatalogTires(query);
     const tire = parseTireSize(query);
     const compat = tire ? compatibilityForTire(query) : null;
-    return {query, valves, tubes, tire, compatibility: compat, status: valves.length || tubes.length ? STATUS.VERIFIED_PRODUCT : (tire && isInGeneratedSpace(tire) ? STATUS.GENERATED_NOMENCLATURE : STATUS.UNKNOWN)};
+    return {query, valves, tubes, catalogTires, tire, compatibility: compat, status: valves.length || tubes.length || catalogTires.length ? STATUS.VERIFIED_PRODUCT : (tire && isInGeneratedSpace(tire) ? STATUS.GENERATED_NOMENCLATURE : STATUS.UNKNOWN)};
   }
 
   function audit() {
     const tubeApplications = uniq(TUBES.map(t=>t.application)).sort();
     return {
-      version:'1.0.0',
+      version:'1.1.0',
       generatedFamilies:Object.fromEntries(Object.keys(FAMILY_DEFS).map(k=>[k,countGenerated(k)])),
       generatedTotal:Object.keys(FAMILY_DEFS).reduce((n,k)=>n+countGenerated(k),0),
+      catalogTireSizes:CATALOG_TIRES.length,
+      catalogTireCategories:SPECIALTY.meta?.tireCategories || {},
       verifiedTubeProducts:TUBES.length,
       verifiedValveReferences:VALVES.length,
+      specialtyTubeProducts:SPECIALTY.meta?.counts?.tubes || 0,
+      specialtyValveReferenceRows:SPECIALTY.meta?.counts?.valveReferenceRows || 0,
+      uniqueSpecialtyValveParts:SPECIALTY.meta?.counts?.uniqueValveParts || 0,
+      excludedSpecialtyRows:SPECIALTY.meta?.excludedRows || [],
       tubeApplications,
-      sourceCount:Object.keys(SOURCES).length,
+      sourceCount:Object.keys(SOURCES).length + (SPECIALTY.sources || []).filter(source => source.url).length,
       rules:[
+        'Exact catalog size means the designation appears in a cited catalog; it is not vehicle fitment, load, pressure, rim or inventory approval.',
         'Generated nomenclature is never labeled as verified market fitment.',
         'Manufacturer tube products retain article number, valve, offset/application and source.',
         'Valve specifications are only shown when a source explicitly supports them.',
@@ -305,7 +376,7 @@
     };
   }
 
-  const API = {SOURCES, STATUS, FAMILY_DEFS, TUBES, VALVES, normalizeTireSize, parseTireSize, isInGeneratedSpace, countGenerated, selectorOptions, buildMetricSize, searchTubes, searchValves, compatibilityForTire, search, audit};
+  const API = {SOURCES, STATUS, FAMILY_DEFS, CATALOG_TIRES, TUBES, VALVES, normalizeTireSize, parseTireSize, isInGeneratedSpace, countGenerated, selectorOptions, buildMetricSize, searchCatalogTires, searchTubes, searchValves, compatibilityForTire, search, audit};
   root.TIRE_CATALOG = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : globalThis);

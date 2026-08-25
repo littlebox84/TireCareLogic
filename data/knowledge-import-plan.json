@@ -1,6 +1,15 @@
 {
   "version": "1.0",
   "name": "TireCare Logic Master Knowledge Import",
+  "catalog_snapshot": {
+    "date": "2026-08-25",
+    "status": "integrated",
+    "exact_tire_records": 791,
+    "tube_products": 261,
+    "valve_reference_rows": 83,
+    "unique_valve_parts": 81,
+    "excluded_placeholder_articles": ["551-759"]
+  },
   "modules": {
     "tires": {
       "sources": ["passenger_sizes", "LT_sizes", "commercial", "agriculture", "motorcycle", "flotation", "industrial", "OTR"],

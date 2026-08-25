@@ -53,9 +53,13 @@ Training should preserve memorable shop guidance where appropriate, including:
 - **Keep it clean** — no dirt, rust flakes, loose rubber, or debris trapped inside the assembly or bead area
 - **Use proper tire lubricant generously** — reduce bead stress and make mounting/demounting cleaner and more controlled
 
-## Current proof-of-concept
+## Current static release
 
+- one-click `index.html` entry point with no install, package manager, build step, or server required
 - forgiving tire-size normalization
+- 791 catalog-backed specialty tire size records across LT metric, flotation LT, trailer, commercial truck/bus, agricultural, and motorcycle categories
+- 261 manufacturer tube product rows with article number, exact multi-size fitment label, valve, weight, pack/pallet, notes, and source
+- 83 valve reference rows covering 81 unique part numbers with manufacturer system, dimensions, pressure text, hydroflation/bore details, and source
 - multi-fit tube families
 - valve knowledge and valve offset support
 - manufacturer/source attribution
@@ -71,12 +75,15 @@ Training should preserve memorable shop guidance where appropriate, including:
 
 ## Demo
 
-```bash
-npm install
-npm run dev
-```
+Open [`index.html`](index.html) directly in Chrome, Edge, Chromium, Firefox, or Safari. The same files can be published directly with GitHub Pages.
 
-Then open the local Vite URL.
+There is no Vite project, npm install, dependency install, compile step, or generated `dist` directory. GitHub Pages deploys the repository as static files after `node --test` verifies the engine and asset wiring.
+
+## Catalog snapshot
+
+The bundled `specialty-catalog.js` snapshot was generated from `specialty_tires_tubes_valves.xlsx` on 2026-08-25. It is a union of cited manufacturer catalogs, not a claim that every listed size or part is currently manufactured or in shop stock.
+
+One workbook placeholder row was intentionally rejected during import: article `551-759` contained the fitment label `TEST SIZE`. It is recorded in the catalog audit metadata but is not searchable as a product.
 
 ## Evidence model
 
@@ -94,13 +101,10 @@ The application distinguishes verified catalog fitments from calculated size com
 
 ## Next phase
 
-1. Build the PWA navigation shell
-2. Add TrainingLogic and Patch Notes screens
-3. Add ValveLogic decision workflows for TR413, TR600HP, TR501, TPMS stems/service kits, and valve-core diagnosis
-4. Import actual shop valve/tube/TPMS inventory from photos and system exports
-5. Add rack/bin locations and physical-vs-system reconciliation
-6. Add vehicle placard/PSI lookup and camera capture
-7. Expand TPMS programming/relearn procedures by exact year/make/model/platform
-8. Add shop-approved corrections and veteran knowledge capture
-9. Add camera-assisted identification for sidewalls, valve stems, TPMS parts, tube boxes, and placards
-10. Keep all high-risk decisions AIRLOCKED: prove it, ask for missing information, or refuse to guess
+1. Import actual shop valve/tube/TPMS inventory from photos and system exports
+2. Add rack/bin locations and physical-vs-system reconciliation
+3. Add vehicle placard/PSI lookup and camera capture
+4. Expand TPMS programming/relearn procedures by exact year/make/model/platform
+5. Add shop-approved corrections and veteran knowledge capture
+6. Add camera-assisted identification for sidewalls, valve stems, TPMS parts, tube boxes, and placards
+7. Keep all high-risk decisions AIRLOCKED: prove it, ask for missing information, or refuse to guess

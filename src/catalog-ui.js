@@ -28,8 +28,9 @@
 
   function renderCatalogSearch(q) {
     const r = C.search(q);
-    if (!r.tire && !r.tubes.length && !r.valves.length) return false;
+    if (!r.tire && !r.catalogTires.length && !r.tubes.length && !r.valves.length) return false;
     const ref = [];
+    r.catalogTires.forEach(t=>ref.push(t.source));
     r.tubes.forEach(t=>ref.push(t.source));
     r.valves.forEach(v=>ref.push(v.source));
 
@@ -49,12 +50,16 @@
       if (c.generatedNomenclatureMatch) body += `<p class="warning"><b>Generated nomenclature match:</b> the syntax/parameter space recognizes this designation, but that does not prove the size is manufactured or approved for a vehicle.</p>`;
     }
 
+    if (r.catalogTires.length) {
+      body += `<h3>Exact catalog tire records</h3><div class="fit-grid">${r.catalogTires.slice(0,50).map(t=>`<div class="fit"><strong>${safe(t.code)}</strong><span>${safe(t.category)} • ${safe(t.format)}</span>${Object.entries(t.specs || {}).map(([label,value])=>`<span>${safe(label.replaceAll('_',' '))}: ${safe(typeof value === 'number' ? Number(value.toFixed(3)) : value)}</span>`).join('')}</div>`).join('')}</div><p class="warning">Catalog listing only. Verify current product status, vehicle/application fitment, load, approved rim, inflation table, valve and TPMS requirements.</p>`;
+    }
+
     if (r.tubes.length) {
-      body += `<h3>Manufacturer-listed tube records</h3><div class="fit-grid">${r.tubes.slice(0,50).map(t=>`<div class="fit"><strong>${safe(t.size)}</strong><span>Article ${safe(t.article)}</span><span>Valve ${safe(t.valve)}</span><span>${safe(t.application)} • ${safe(t.origin)}</span><span>Valve position: ${safe(t.valveOffset)}</span></div>`).join('')}</div>`;
+      body += `<h3>Manufacturer-listed tube records</h3><div class="fit-grid">${r.tubes.slice(0,50).map(t=>`<div class="fit"><strong>${safe(t.size)}</strong><span>Article ${safe(t.article)}</span><span>Valve ${safe(t.valve)}</span><span>${safe(t.application)} • ${safe(t.origin)}</span>${t.valveOffset ? `<span>Valve position: ${safe(t.valveOffset)}</span>` : ''}${t.weightLb != null ? `<span>Weight: ${safe(t.weightLb)} lb</span>` : ''}${t.packPallet ? `<span>Pack / pallet: ${safe(t.packPallet)}</span>` : ''}${t.compatibilityNote ? `<span>${safe(t.compatibilityNote)}</span>` : ''}</div>`).join('')}</div>`;
     }
 
     if (r.valves.length) {
-      body += `<h3>Valve references</h3><div class="fit-grid">${r.valves.map(v=>`<div class="fit"><strong>${safe(v.code)}</strong><span>${v.maxPsi ? `Max ${safe(v.maxPsi)} PSI` : safe(v.specStatus || 'Reference')}</span><span>${v.rimHoleIn ? `Rim hole ${safe(v.rimHoleIn)} in` : 'Rim hole: verify source/application'}</span><span>${v.hydroflation ? 'Air/liquid capable' : 'Air service / verify application'}</span>${v.notes ? `<span>${safe(v.notes)}</span>`:''}</div>`).join('')}</div>`;
+      body += `<h3>Valve references</h3><div class="fit-grid">${r.valves.slice(0,50).map(v=>`<div class="fit"><strong>${safe(v.code)}</strong><span>${safe(v.class || v.specStatus || 'Valve reference')}</span>${v.description ? `<span>${safe(v.description)}</span>` : ''}<span>${v.maxPsi ? `Max ${safe(v.maxPsi)} PSI` : v.pressure ? `Pressure: ${safe(v.pressure)}` : 'Pressure: verify exact manufacturer'}</span><span>${v.rimHoleIn ? `Rim hole ${safe(v.rimHoleIn)} in` : v.boreOrHole ? `Bore / hole: ${safe(v.boreOrHole)}` : 'Rim hole: verify source/application'}</span>${v.length ? `<span>Length: ${safe(v.length)}</span>` : ''}<span>${v.hydroflation ? 'Air/liquid capable' : v.hydroflationText ? `Hydroflation: ${safe(v.hydroflationText)}` : 'Air service / verify application'}</span>${v.notes ? `<span>${safe(v.notes)}</span>`:''}</div>`).join('')}</div>`;
     }
 
     body += sources(ref);
@@ -67,8 +72,10 @@
   function renderBuilder() {
     const audit = C.audit();
     const families = Object.keys(C.FAMILY_DEFS);
-    panel('Full tire / tube / valve catalog', `<p class="lead">Search verified manufacturer tube records and valve references, or construct any designation in the generated nomenclature space. Generated does <b>not</b> mean manufactured or fitment-approved.</p>
-      <div class="stat-grid"><div><b>${audit.generatedTotal.toLocaleString()}</b><span>generated metric designation combinations</span></div><div><b>${audit.verifiedTubeProducts}</b><span>source-backed tube products</span></div><div><b>${audit.verifiedValveReferences}</b><span>valve references</span></div></div>
+    panel('Full tire / tube / valve catalog', `<p class="lead">Search exact catalog tire designations, manufacturer tube products and valve references, or construct a designation in the generated nomenclature space. Generated does <b>not</b> mean manufactured or fitment-approved.</p>
+      <div class="stat-grid"><div><b>${audit.catalogTireSizes.toLocaleString()}</b><span>exact specialty tire size records</span></div><div><b>${audit.verifiedTubeProducts.toLocaleString()}</b><span>source-backed tube products</span></div><div><b>${audit.uniqueSpecialtyValveParts.toLocaleString()}</b><span>unique specialty valve parts</span></div><div><b>${audit.generatedTotal.toLocaleString()}</b><span>generated metric designation combinations</span></div></div>
+      <h3>Exact catalog coverage</h3>
+      <div class="chips">${Object.entries(audit.catalogTireCategories).map(([name,count])=>`<span>${safe(name)}: ${safe(count)}</span>`).join('')}</div>
       <h3>Size builder</h3>
       <div class="calculator-grid">
         <label>Family<select id="catFamily">${families.map(k=>`<option value="${k}">${safe(C.FAMILY_DEFS[k].label)}</option>`).join('')}</select></label>
@@ -108,7 +115,7 @@
   }
   const grid = document.querySelector('.module-grid');
   if (grid && !document.querySelector('.catalog-engine-card')) {
-    const b = document.createElement('button'); b.className='module-card catalog-engine-card'; b.innerHTML='<span class="icon">◎</span><strong>Full Catalog Engine</strong><small>Generated tire-size space + source-backed tubes + valves</small><em>OPEN CATALOG →</em>'; b.onclick=renderBuilder; grid.appendChild(b);
+    const b = document.createElement('button'); b.className='module-card catalog-engine-card'; b.innerHTML='<span class="icon">◎</span><strong>Full Catalog Engine</strong><small>Exact specialty sizes + source-backed tubes + valves</small><em>OPEN CATALOG →</em>'; b.onclick=renderBuilder; grid.appendChild(b);
   }
 
   const searchBtn = $('#searchBtn');

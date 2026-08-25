@@ -1,6 +1,14 @@
 # TireCare Logic — Verification Audit
 
-Last audited: 2026-08-24
+Last audited: 2026-08-25
+
+## 2026-08-25 specialty catalog import
+
+The bundled static catalog contains 791 exact tire designation rows, 261 manufacturer tube product rows, and 83 valve reference rows representing 81 unique valve part numbers. Exact tire coverage includes LT metric, flotation LT, trailer, commercial truck/bus, agricultural, and motorcycle catalogs.
+
+The import rejected one placeholder row: article `551-759` with fitment label `TEST SIZE`. Rejected rows remain visible in catalog audit metadata but are not returned as products.
+
+Catalog size search is exact after normalization. Prefixes remain safety-significant: a passenger-shaped `245/75R16` query is not verified by an `LT245/75R16` catalog record.
 
 ## Rule
 
