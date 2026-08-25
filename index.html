@@ -1,1 +1,110 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#081012"><title>TireCare Logic</title><link rel="stylesheet" href="styles.css"></head><body><div id="three-bg" aria-hidden="true"></div><main class="app-shell"><header class="topbar"><div><div class="eyebrow">SHOP INTELLIGENCE • AIRLOCK MODE</div><h1>TireCare Logic</h1><p class="subtitle">Tires. Tubes. Pressure. Valves. TPMS. Repairs. Training.</p></div><div class="airlock">AIRLOCK ACTIVE</div></header><section class="hero-search"><div class="search-head"><span>Ask TireCare</span><span class="mode-pill">STATIC BUILD</span></div><div class="search-row"><input id="query" autocomplete="off" placeholder="Try 413, 600HP, 501, 16.9R38, 552-070..."><button id="searchBtn" class="primary">SEARCH</button></div><div class="quick-chips"><button data-q="413">413</button><button data-q="600HP">600HP</button><button data-q="501">501</button><button data-q="16.9R38">16.9R38</button><button data-q="552-070">552-070</button></div></section><section class="module-grid"><button class="module-card" data-module="fitment"><span class="icon">◉</span><strong>Tire / Tube</strong><small>Size, article, valve, fitment</small></button><button class="module-card" data-module="pressure"><span class="icon">PSI</span><strong>PressureLogic</strong><small>Placard comparison workflow</small></button><button class="module-card" data-module="valves"><span class="icon">V</span><strong>ValveLogic + TPMS</strong><small>Stems, sensors, service, relearn</small></button><button class="module-card" data-module="patch"><span class="icon">＋</span><strong>Patch Notes</strong><small>Dunk, inspect, repair, verify</small></button><button class="module-card" data-module="training"><span class="icon">▶</span><strong>TrainingLogic</strong><small>Quick / Learn / Why?</small></button><button class="module-card" data-module="inventory"><span class="icon">▦</span><strong>InventoryLogic</strong><small>Working local stock notebook</small></button><button class="module-card" data-module="knowledge"><span class="icon">DB</span><strong>Knowledge Base</strong><small>Browse everything loaded</small></button><button class="module-card" data-module="status"><span class="icon">✓</span><strong>Data Status</strong><small>What is verified vs incomplete</small></button><button class="module-card" data-module="selftest"><span class="icon">⚙</span><strong>Stump Test</strong><small>Prove core searches work</small></button></section><section id="result" class="result"></section><footer class="footer-rule">Verified answer, clear condition, or UNKNOWN. TireCare Logic does not guess.</footer></main><script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script><script src="knowledge-base.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b4d95">
+  <title>TireCare Logic</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="three-bg" aria-hidden="true"></div>
+
+  <header class="shop-header">
+    <div class="utility-bar">
+      <div class="utility-inner">
+        <span class="utility-item">◉ TIRECARE SHOP INTELLIGENCE</span>
+        <span class="utility-center">BUILT FOR THE TIRE FLOOR</span>
+        <span class="airlock">AIRLOCK ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="brand-bar">
+      <div class="brand-inner">
+        <div class="brand-lockup" aria-label="TireCare Logic">
+          <span class="brand-main">TIRECARE</span>
+          <span class="brand-sub">LOGIC</span>
+        </div>
+        <div class="brand-copy">
+          <strong>Shop Knowledge. Verified.</strong>
+          <span>Tires • Tubes • Valves • TPMS • Pressure • Repair</span>
+        </div>
+        <button class="header-action" data-module="selftest">⚙ RUN STUMP TEST</button>
+      </div>
+    </div>
+
+    <nav class="shop-nav" aria-label="TireCare sections">
+      <div class="nav-inner">
+        <button data-module="fitment">TIRE / TUBE</button>
+        <button data-module="pressure">PRESSURE</button>
+        <button data-module="valves">VALVES + TPMS</button>
+        <button data-module="patch">PATCH NOTES</button>
+        <button data-module="training">TRAINING</button>
+        <button data-module="inventory">INVENTORY</button>
+        <button data-module="knowledge">KNOWLEDGE</button>
+        <button data-module="status">DATA STATUS</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="section-banner"><div>TIRECARE SHOP LOGIC</div></div>
+
+  <main class="app-shell">
+    <section class="workflow-strip" aria-label="Workflow">
+      <div class="workflow-step active"><span>1</span><b>IDENTIFY</b><small>Size, valve, article, symptom</small></div>
+      <div class="workflow-line"></div>
+      <div class="workflow-step"><span>2</span><b>VERIFY</b><small>Catalog, wheel, placard, application</small></div>
+      <div class="workflow-line"></div>
+      <div class="workflow-step"><span>3</span><b>ACT</b><small>Fit, repair, relearn, document</small></div>
+    </section>
+
+    <section class="hero-search">
+      <div class="search-head">
+        <div>
+          <span class="search-kicker">SHOP LOOKUP</span>
+          <h1>What are you working on?</h1>
+          <p>Type it the way it appears in the bay: tire size, tube article, valve number, TPMS, PSI, puncture, or shop shorthand.</p>
+        </div>
+        <span class="mode-pill">VERIFIED / UNKNOWN</span>
+      </div>
+      <div class="search-row">
+        <input id="query" autocomplete="off" placeholder="Examples: 413 • 600HP • 501 • 16.9R38 • 552-070 • 6.50R10">
+        <button id="searchBtn" class="primary">FIND ANSWER ➜</button>
+      </div>
+      <div class="quick-chips" aria-label="Quick searches">
+        <button data-q="413">413</button>
+        <button data-q="600HP">600HP</button>
+        <button data-q="501">501</button>
+        <button data-q="16.9R38">16.9R38</button>
+        <button data-q="6.50R10">6.50R10</button>
+        <button data-q="552-070">552-070</button>
+      </div>
+    </section>
+
+    <div class="content-title"><span>SHOP TOOLS</span><small>Choose a workflow</small></div>
+
+    <section class="module-grid">
+      <button class="module-card" data-module="fitment"><span class="icon">◉</span><strong>Tire / Tube</strong><small>Size, article, valve and verified fitment</small><em>OPEN LOOKUP →</em></button>
+      <button class="module-card" data-module="pressure"><span class="icon">PSI</span><strong>PressureLogic</strong><small>Placard-first pressure comparison</small><em>CHECK PRESSURE →</em></button>
+      <button class="module-card" data-module="valves"><span class="icon">V</span><strong>ValveLogic + TPMS</strong><small>Stem, sensor, service kit and relearn</small><em>FIND VALVE →</em></button>
+      <button class="module-card" data-module="patch"><span class="icon">＋</span><strong>Patch Notes</strong><small>Dunk, inspect, repair and verify</small><em>OPEN REPAIR →</em></button>
+      <button class="module-card" data-module="training"><span class="icon">▶</span><strong>TrainingLogic</strong><small>Quick / Learn / Why? shop procedures</small><em>START TRAINING →</em></button>
+      <button class="module-card" data-module="inventory"><span class="icon">▦</span><strong>InventoryLogic</strong><small>Working local stock notebook</small><em>OPEN STOCK →</em></button>
+      <button class="module-card" data-module="knowledge"><span class="icon">DB</span><strong>Knowledge Base</strong><small>Browse verified records and sources</small><em>BROWSE DATA →</em></button>
+      <button class="module-card" data-module="status"><span class="icon">✓</span><strong>Data Status</strong><small>Verified coverage vs incomplete areas</small><em>VIEW STATUS →</em></button>
+      <button class="module-card accent-card" data-module="selftest"><span class="icon">⚙</span><strong>Stump Test</strong><small>Prove the core lookup engine works</small><em>RUN TEST →</em></button>
+    </section>
+
+    <section id="result" class="result"></section>
+
+    <footer class="footer-rule">
+      <strong>TIRECARE LOGIC</strong>
+      <span>Verified answer • Clear condition • Or UNKNOWN. Never guess a safety-critical fitment.</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+  <script src="knowledge-base.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
