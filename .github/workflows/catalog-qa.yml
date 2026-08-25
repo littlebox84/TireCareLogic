@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 22
       - name: Run Node catalog regression
-        run: node tests/catalog-regression.js
+        run: node tests/catalog-regression.mjs
       - name: Install browser test dependency
         run: |
           npm install --no-save playwright@1.55.0
