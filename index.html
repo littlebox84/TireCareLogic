@@ -64,20 +64,22 @@
         <div>
           <span class="search-kicker">SHOP LOOKUP</span>
           <h1>What are you working on?</h1>
-          <p>Type it the way it appears in the bay: tire size, tube article, valve number, TPMS, PSI, puncture, or shop shorthand.</p>
+          <p>Type it the way it appears in the bay: tire size, tube article, valve number, TPMS part, PSI, puncture, or shop shorthand.</p>
         </div>
-        <span class="mode-pill">VERIFIED / UNKNOWN</span>
+        <span class="mode-pill">VERIFIED / RECOGNIZED / UNKNOWN</span>
       </div>
       <div class="search-row">
-        <input id="query" autocomplete="off" placeholder="Examples: 413 • 600HP • 501 • 16.9R38 • 552-070 • 6.50R10">
+        <input id="query" autocomplete="off" placeholder="Examples: type M, 255/65, 15 • 413 • 33500 • 16.9R38 • 552-070">
         <button id="searchBtn" class="primary">FIND ANSWER ➜</button>
       </div>
       <div class="quick-chips" aria-label="Quick searches">
+        <button data-q="type M, 255/65, 15">255/65R15 messy input</button>
         <button data-q="413">413</button>
         <button data-q="600HP">600HP</button>
-        <button data-q="501">501</button>
+        <button data-q="33500">Schrader 33500</button>
         <button data-q="16.9R38">16.9R38</button>
-        <button data-q="6.50R10">6.50R10</button>
+        <button data-q="420/85R38">420/85R38</button>
+        <button data-q="31x10.50R15">31x10.50R15</button>
         <button data-q="552-070">552-070</button>
       </div>
     </section>
@@ -100,7 +102,7 @@
 
     <footer class="footer-rule">
       <strong>TIRECARE LOGIC</strong>
-      <span>Verified answer • Clear condition • Or UNKNOWN. Never guess a safety-critical fitment.</span>
+      <span>Recognize the tire. Verify the product. Separate component ratings from operating pressure. UNKNOWN when evidence is missing.</span>
     </footer>
   </main>
 
@@ -109,6 +111,8 @@
   <script src="tire-math.js"></script>
   <script src="app.js"></script>
   <script src="src/catalog-engine.js"></script>
-  <script src="src/catalog-ui.js"></script>
+  <script src="src/research-catalog.js"></script>
+  <script src="src/catalog-runtime.js"></script>
+  <script src="src/catalog-ui-v2.js"></script>
 </body>
 </html>
