@@ -1,0 +1,20 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const pageErrors=[]; page.on('pageerror',e=>pageErrors.push(String(e)));
+await page.goto('http://127.0.0.1:4173/index.html',{waitUntil:'domcontentloaded'});
+await page.waitForSelector('#query');
+async function search(q){await page.fill('#query',q);await page.click('#searchBtn');await page.waitForTimeout(80);return await page.locator('#result').innerText();}
+let text=await search('type M, 255/65, 15');
+assert.match(text,/255\/65R15/);assert.match(text,/TU02377/);assert.match(text,/TU02246/);assert.match(text,/placard/i);
+text=await search('33500');assert.match(text,/Schrader/);assert.match(text,/33500/);assert.match(text,/314\.9 \/ 315 \/ 433 MHz/);
+text=await search('TR501');assert.match(text,/TR501/);assert.match(text,/verify exact product\/application/i);
+text=await search('255/65R18');assert.match(text,/Brownie's catalog matches/);assert.match(text,/Goodyear/);
+text=await search('420/85R38');assert.match(text,/420\/85R38/);assert.match(text,/TU0868/);
+text=await search('definitely-not-a-tire-xyz');assert.match(text,/UNKNOWN/i);
+const deep=page.locator('.deep-catalog-card');assert.equal(await deep.count(),1,'Deep Catalog card should exist');await deep.click();await page.waitForTimeout(50);text=await page.locator('#result').innerText();assert.match(text,/Air-Loc cross-reference records/);assert.match(text,/TPMS product records/);
+const regression=page.locator('.deep-test-card');assert.equal(await regression.count(),1,'Catalog Regression card should exist');await regression.click();await page.waitForTimeout(50);text=await page.locator('#result').innerText();assert.match(text,/18\/18/);assert.match(text,/catalog engine/i);
+const fatal=pageErrors.filter(e=>!/THREE|WebGL|cdn/i.test(e));assert.deepEqual(fatal,[],`page errors: ${fatal.join('; ')}`);
+console.log('BROWSER SMOKE PASS');
+await browser.close();
