@@ -23,6 +23,8 @@ const extra=[
  {maker:'Autel',part:'300050',name:'1-Sensor 240-Pack',frequency:'Dual-frequency universal family',stem:'Bulk sensor family',programming:'Programmable MX-Sensor bundle',source:S.AUTEL_2025}
 ];
 const existing=new Set((C.TPMS_PRODUCTS||[]).map(x=>`${x.maker}|${x.part}`));for(const p of extra){const k=`${p.maker}|${p.part}`;if(!existing.has(k)){C.TPMS_PRODUCTS.push(p);existing.add(k);}}
+const aliasMap={TR150:['TR150A','150A'],TR440:['TR440A','TR75A','75A'],TR442:['TR77A','77A'],TR87:['87'],TR218A:['218A'],TR13:['13'],TR15:['15'],TR300:['300'],JS2:['JS-2']};
+for(const v of C.VALVES||[]){if(aliasMap[v.code])v.aliases=[...new Set([...(v.aliases||[]),...aliasMap[v.code]])];}
 C.TECHNICAL_REFERENCES=[S.SCHRADER_APP_GUIDE,S.DILL_MASTER,S.AUTEL_2025,S.GOODYEAR_SPECS,S.CONTINENTAL_TRUCK,S.USTMA_REPAIR,S.BRIDGESTONE_SIDEWALL];
 root.TIRE_CATALOG=C;
 })(typeof window!=='undefined'?window:globalThis);
