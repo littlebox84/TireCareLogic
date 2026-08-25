@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101316" />
+  <title>TubeLogic</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <div class="eyebrow">TIRE TUBE FITMENT INTELLIGENCE</div>
+        <h1>TubeLogic</h1>
+        <p class="subtitle">Search tire sizes, tube families, valves, and verified fitments.</p>
+      </div>
+      <div class="badge">v0.1 POC</div>
+    </header>
+
+    <section class="search-card">
+      <label for="query">Ask TubeLogic</label>
+      <div class="search-row">
+        <input id="query" autocomplete="off" placeholder="Try 70075016, 7.00R7.50R16LT, TR218A..." />
+        <button id="searchBtn">Find Fitment</button>
+      </div>
+      <div class="examples">
+        <button data-q="70075016">70075016</button>
+        <button data-q="TR218A">TR218A</button>
+        <button data-q="TR15CW">TR15CW</button>
+      </div>
+    </section>
+
+    <section id="result" class="result"></section>
+
+    <section class="principle">
+      <strong>TubeLogic rule:</strong> same tire size does not always mean same tube selection.
+      Valve type, valve offset, wheel configuration, application, and other constraints can change the correct answer.
+    </section>
+  </main>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
