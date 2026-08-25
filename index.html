@@ -3,42 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#101316" />
-  <title>TubeLogic</title>
+  <meta name="theme-color" content="#0b0f12" />
+  <title>TireCare Logic</title>
   <link rel="stylesheet" href="/src/styles.css" />
 </head>
 <body>
-  <main class="shell">
-    <header>
+  <main class="app-shell">
+    <header class="topbar">
       <div>
-        <div class="eyebrow">TIRE TUBE FITMENT INTELLIGENCE</div>
-        <h1>TubeLogic</h1>
-        <p class="subtitle">Search tire sizes, tube families, valves, and verified fitments.</p>
+        <div class="eyebrow">SHOP INTELLIGENCE • AIRLOCK MODE</div>
+        <h1>TireCare Logic</h1>
+        <p class="subtitle">Fitment. Pressure. Valves. Repairs. Training.</p>
       </div>
-      <div class="badge">v0.1 POC</div>
+      <div class="airlock">AIRLOCK ACTIVE</div>
     </header>
 
-    <section class="search-card">
-      <label for="query">Ask TubeLogic</label>
-      <div class="search-row">
-        <input id="query" autocomplete="off" placeholder="Try 70075016, 7.00R7.50R16LT, TR218A..." />
-        <button id="searchBtn">Find Fitment</button>
+    <section class="hero-search">
+      <div class="search-head">
+        <span>Ask TireCare</span>
+        <span class="mode-pill">QUICK</span>
       </div>
-      <div class="examples">
+      <div class="search-row">
+        <input id="query" autocomplete="off" placeholder="Try 70075016, TR218A, 600HP..." />
+        <button id="searchBtn" class="primary">Search</button>
+      </div>
+      <div class="quick-chips">
         <button data-q="70075016">70075016</button>
         <button data-q="TR218A">TR218A</button>
-        <button data-q="TR15CW">TR15CW</button>
+        <button data-q="TR440">TR440</button>
       </div>
+    </section>
+
+    <section class="module-grid" id="modules">
+      <button class="module-card" data-module="fitment"><span class="icon">◉</span><strong>Tire / Tube</strong><small>Size, tube, valve, flap</small></button>
+      <button class="module-card" data-module="pressure"><span class="icon">PSI</span><strong>Pressure</strong><small>Placard-first pressure logic</small></button>
+      <button class="module-card" data-module="valves"><span class="icon">V</span><strong>Valves & TPMS</strong><small>Stem, sensor, relearn</small></button>
+      <button class="module-card" data-module="patch"><span class="icon">＋</span><strong>Patch Notes</strong><small>Find, inspect, repair, verify</small></button>
+      <button class="module-card" data-module="training"><span class="icon">▶</span><strong>Training</strong><small>Quick / Learn / Why</small></button>
+      <button class="module-card" data-module="inventory"><span class="icon">▦</span><strong>Inventory</strong><small>Shop stock coming next</small></button>
     </section>
 
     <section id="result" class="result"></section>
 
-    <section class="principle">
-      <strong>TubeLogic rule:</strong> same tire size does not always mean same tube selection.
-      Valve type, valve offset, wheel configuration, application, and other constraints can change the correct answer.
-    </section>
+    <footer class="footer-rule">
+      Verified answer, clear condition, or UNKNOWN. TireCare Logic does not guess.
+    </footer>
   </main>
-
   <script type="module" src="/src/app.js"></script>
 </body>
 </html>
